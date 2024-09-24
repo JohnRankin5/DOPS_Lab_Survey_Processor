@@ -27,6 +27,22 @@ master_key = {
             "BAS_Reward_Responsiveness": ['BAS_rew_4(-)', 'BAS_rew_7(-)', 'BAS_rew_14(-)', 'BAS_rew_18(-)', 'BAS_rew_23(-)'],
             "BIS": ['BIS_8(-)', 'BIS_13(-)', 'BIS_16(-)', 'BIS_19(-)', 'BIS_24(-)', 'BIS_2', 'BIS_22']
         }
+    ],
+    "PANAS": [
+        ["PANAS"],  # Keywords
+        "PANAS",  # Scale name
+        {   # Response map
+            "Never": 1,
+            "Almost Never": 2,
+            "Neutral": 3,
+            "Sometimes": 4,
+            "Always": 5
+        },
+        [],  # No reverse scoring columns
+        {   # Sections with exact variable names
+            "Positive Affect": ['PAN_inspire', 'PAN_determ', 'PAN_attent', 'PAN_active', 'PAN_alert'],
+            "Negative Affect": ['PAN_upset', 'PAN_hostile', 'PAN_asham', 'PAN_nervou', 'PAN_afraid']
+        }
     ]
 }
 
@@ -94,29 +110,30 @@ def process_subscales(df, scale_name):
 def process_survey(df):
     global master_score  # Declare master_score as a global variable
     
-    scales = ["BIS_BAS"]  # You can add more scales here
+    scales = ["BIS_BAS", "PANAS"]  # You can add more scales here
 
     # Loop through each row (participant) in the DataFrame
     for index, row in df.iloc[2:].iterrows():  # Skip the first two rows
-        # Process the row as a separate participant
+        combined_scores = {}  # Initialize a dictionary to store combined scores for one participant
+        
+        # Process the row for each scale
         for scale in scales:
             scores = process_subscales(row.to_frame().T, scale)  # Convert the row to a DataFrame
             
-            # Ensure scores is a dictionary and convert it to a DataFrame
+            # Ensure scores is a dictionary and merge it into combined_scores
             if isinstance(scores, dict):
-                scores_df = pd.DataFrame([scores])  # Convert dict to DataFrame8=
-                
-                
-                # Append the scores to the master_score DataFrame, creating a new row for each participant
-                master_score = pd.concat([master_score, scores_df], ignore_index=True)
-
+                combined_scores.update(scores)  # Merge the scores for this scale into combined_scores
             else:
                 print(f"Invalid data format for scale {scale} in row {index}: {type(scores)}")
+        
+        # After processing all scales, append the combined scores to master_score
+        combined_scores_df = pd.DataFrame([combined_scores])  # Convert combined_scores to DataFrame
+        
+        # Append the combined scores to the master_score DataFrame, creating a new row for each participant
+        master_score = pd.concat([master_score, combined_scores_df], ignore_index=True)
 
     # Optionally display the current master_score after processing all participants
     display(master_score)
-
-
 
 
 # Function to create the UI

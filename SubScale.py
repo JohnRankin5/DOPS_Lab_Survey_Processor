@@ -85,8 +85,6 @@ def process_bis_bas(section):
         "BIS": section[bis_items].sum(axis=1).tolist()
     }
 
-    print("Scores calculated:")
-    print(scores)
 
     return scores
 
