@@ -40,8 +40,8 @@ master_key = {
         },
         [],  # No reverse scoring columns
         {   # Sections with exact variable names
-            "Positive Affect": ['PAN_inspire', 'PAN_determ', 'PAN_attent', 'PAN_active', 'PAN_alert'],
-            "Negative Affect": ['PAN_upset', 'PAN_hostile', 'PAN_asham', 'PAN_nervou', 'PAN_afraid']
+            "PANAS Positive Affect": ['PAN_inspire', 'PAN_determin', 'PAN_attent', 'PANAS_active', 'PAN_alert'],
+            "PANAS Negative Affect": ['PAN_upset', 'PAN_hostile', 'PAN_ashame', 'PAN_nervous', 'PANAS_afraid']
         }
     ]
 }
@@ -67,6 +67,8 @@ def map_response_to_score(response, response_map):
 def reverse_score(score, scale):
     return scale + 1 - score
 
+
+
 # Universal function to process subscales based on the master key dictionary
 def process_subscales(df, scale_name):
     if df is None or scale_name not in master_key:
@@ -77,7 +79,6 @@ def process_subscales(df, scale_name):
     scale_details = master_key[scale_name]
     keywords, scale, response_map, reverse_columns, sections = scale_details
     max_score = max(response_map.values())
-    print(max_score)
     
     # Initialize a dictionary to store scores for each section
     scores = {}
@@ -96,6 +97,7 @@ def process_subscales(df, scale_name):
                     df[item] = df[item].apply(lambda x: reverse_score(x, max_score) if pd.notna(x) else x)
 
                 # Sum the scores for the section
+
                 section_score += df[item].sum()
 
         # Store the total score for the section
@@ -103,6 +105,7 @@ def process_subscales(df, scale_name):
 
     # Return the scores
     return scores
+
 
 
 
@@ -134,6 +137,10 @@ def process_survey(df):
 
     # Optionally display the current master_score after processing all participants
     display(master_score)
+
+
+
+
 
 
 # Function to create the UI
