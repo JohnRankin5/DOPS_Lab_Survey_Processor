@@ -60,6 +60,8 @@ def process_subscales(df, scale_name):
     # Pull the details from the master key for the given scale
     scale_details = master_key[scale_name]
     keywords, scale, response_map, reverse_columns, sections = scale_details
+    max_score = max(response_map.values())
+    print(max_score)
     
     # Initialize a dictionary to store scores for each section
     scores = {}
@@ -75,7 +77,7 @@ def process_subscales(df, scale_name):
                 
                 # Apply reverse scoring if necessary
                 if item in reverse_columns:
-                    df[item] = df[item].apply(lambda x: reverse_score(x, 4) if pd.notna(x) else x)
+                    df[item] = df[item].apply(lambda x: reverse_score(x, max_score) if pd.notna(x) else x)
 
                 # Sum the scores for the section
                 section_score += df[item].sum()
@@ -84,8 +86,6 @@ def process_subscales(df, scale_name):
         scores[section_name] = section_score
 
     # Return the scores
-    print(f"Scores for {scale}:")
-    print(scores)
     return scores
 
 
@@ -104,10 +104,8 @@ def process_survey(df):
             
             # Ensure scores is a dictionary and convert it to a DataFrame
             if isinstance(scores, dict):
-                scores_df = pd.DataFrame([scores])  # Convert dict to DataFrame
+                scores_df = pd.DataFrame([scores])  # Convert dict to DataFrame8=
                 
-                # Debugging print to ensure correct conversion
-                print(f"Processed scores for row {index}: ", scores_df)
                 
                 # Append the scores to the master_score DataFrame, creating a new row for each participant
                 master_score = pd.concat([master_score, scores_df], ignore_index=True)
@@ -117,8 +115,6 @@ def process_survey(df):
 
     # Optionally display the current master_score after processing all participants
     display(master_score)
-
-
 
 
 

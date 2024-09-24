@@ -1,1 +1,6 @@
+Complete the master key
+Do more testings 
+Find out a way to grade the multiple choic questions efficiently
+Find a way to combine them
+Double check the survey to make sure all the names are right
 
