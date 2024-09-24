@@ -1,6 +1,7 @@
 Complete the master key
+Find a way for the master key to be a file. Therefore, the user can edit it easily. 
+Add checks in place to make sure the master key is structure correctly
 Do more testings 
 Find out a way to grade the multiple choic questions efficiently
-Find a way to combine them
-Double check the survey to make sure all the names are right
+
 
