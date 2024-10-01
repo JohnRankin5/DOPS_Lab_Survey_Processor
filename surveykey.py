@@ -3,6 +3,7 @@ import customtkinter as ctk
 from tkinter import filedialog, messagebox
 from IPython.display import display
 import yaml
+import gc  # For garbage collection to clean memory
 
 # Load the YAML file This will be the master key for the survey scales
 with open('survey_master_key.yaml', 'r') as f:
@@ -112,6 +113,9 @@ def process_subscales(df, scale_name):
             # Store the total score for the section
             scores[section_name] = section_score
 
+
+        
+
     elif q_type == "slider":
         # Slider Question Processing (DES scale)
         for section_name, items in sections.items():
@@ -167,6 +171,21 @@ def process_survey(df):
 
 
 
+
+
+def clear_sensitive_data():
+    global df_global, file_path_global
+    
+    # Clear DataFrame from memory
+    if df_global is not None:
+        del df_global  # Clear the DataFrame from memory
+        df_global = None  # Reset the global variable
+    
+    # Reset the file path variable, but do not delete the file
+    file_path_global = None
+    
+    # Force garbage collection to clear memory
+    gc.collect()
 
 
 
@@ -254,3 +273,6 @@ master_score.insert(0, 'Last Name', last_names['RecipientLastName'].reset_index(
 
 # Save the updated master_score to a CSV file
 master_score.to_csv('master_score.csv', index=False)
+
+
+clear_sensitive_data()  # Clear sensitive data. Remove all temporary files and clear memory.
