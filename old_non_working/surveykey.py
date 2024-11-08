@@ -65,6 +65,12 @@ def reverse_score(score, scale):
     return scale + 1 - score
 
 
+# Reverse scoring logic for binary (0 and 1) questions with absolute value
+def reverse_score_binary(score):
+    return abs(1 - score)  # Flip between 0 and 1, ensure result is non-negative
+
+
+
 def process_subscales(df, scale_name):
     if df is None or scale_name not in master_key:
         print("Data or master key is not loaded")
@@ -79,6 +85,8 @@ def process_subscales(df, scale_name):
     scores = {}
 
     # Process based on question type
+
+    # Check if the question type is matrix, multiple_choice_binary, multiple_choice, or slider
     if q_type == "matrix":
         # Matrix Question Processing
         for section_name, items in sections.items():
@@ -98,14 +106,27 @@ def process_subscales(df, scale_name):
             # Store the total score for the section
             scores[section_name] = section_score
 
-    elif q_type == "multiple_choice":
-        # Multiple Choice Question Processing
+
+
+
+
+
+    elif q_type == "multiple_choice_binary":
+        # Process binary (yes/no) questions
+        print(f"Processing {scale_name} binary questions")
         for section_name, items in sections.items():
             section_score = 0
             for item in items:
                 if item in df.columns:
-                    # Map responses to numerical scores for multiple choice
+                    # Debug: Print the response_map used for each scale
+                    print(f"Response map for {scale_name}: {response_map}")
+                    
+                    # Ensure we are mapping based on Yes/No rather than True/False
                     df[item] = df[item].apply(lambda x: map_response_to_score(x, response_map))
+                    
+                    # Apply reverse scoring if necessary for binary scale (0 and 1)
+                    if item in reverse_columns:
+                        df[item] = df[item].apply(lambda x: reverse_score_binary(x) if pd.notna(x) else x)
                     
                     # Sum the scores for the section
                     section_score += df[item].sum()
@@ -133,7 +154,6 @@ def process_subscales(df, scale_name):
                 scores[section_name] = round(average_score, 3) # Store the average score for DES
             else:
                 scores[section_name] = 0
-
     return scores
 
 
@@ -145,6 +165,7 @@ def process_survey(df):
     global master_score  # Declare master_score as a global variable
     
     scales = list(master_key.keys())  # This will dynamically extract all the keys
+    print(scales)
 
     # Loop through each row (participant) in the DataFrame
     for index, row in df.iloc[2:].iterrows():  # Skip the first two rows

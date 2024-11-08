@@ -119,3 +119,66 @@ DES:
       - DES_26
       - DES_27
       - DES_28
+
+O-LIFE:
+  type: multiple_choice_binary  # For Yes/No questions
+  keywords:
+    - O-LIFE
+  scale_name: O-LIFE
+  response_map:
+    "Yes": 1
+    "No": 0
+
+  reverse_columns: {}
+  sections:
+    Unusual Experiences: 
+      - O-LIFE_1
+      - O-LIFE_2
+      - O-LIFE_3
+      - O-LIFE_4
+      - O-LIFE_5
+      - O-LIFE_6
+      - O-LIFE_7
+      - O-LIFE_8
+      - O-LIFE_9
+      - O-LIFE_10
+      - O-LIFE_11
+      - O-LIFE_12
+
+    Cognitive Disorganisation: 
+      - O-LIFE_13
+      - O-LIFE_14
+      - O-LIFE_15
+      - O-LIFE_16
+      - O-LIFE_17
+      - O-LIFE_18
+      - O-LIFE_19
+      - O-LIFE_20
+      - O-LIFE_21
+      - O-LIFE_22
+      - O-LIFE_23
+
+    Introvertive Anhedonia:
+      - O-LIFE_24
+      - O-LIFE_25
+      - O-LIFE_26
+      - O-LIFE_27
+      - O-LIFE_28
+      - O-LIFE_29
+      - O-LIFE_30
+      - O-LIFE_31
+      - O-LIFE_32
+      - O-LIFE_33
+    Impulsive Nonconformity:
+      - O-LIFE_34
+      - O-LIFE_35
+      - O-LIFE_36
+      - O-LIFE_37
+      - O-LIFE_38
+      - O-LIFE_39
+      - O-LIFE_40
+      - O-LIFE_41
+      - O-LIFE_42
+      - O-LIFE_43
+
+

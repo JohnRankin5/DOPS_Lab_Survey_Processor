@@ -1,7 +1,7 @@
 import pandas as pd
 import customtkinter as ctk
 from tkinter import filedialog, messagebox
-from SubScale import *
+from old_non_working.SubScale import *
 from IPython.display import display
 
 
