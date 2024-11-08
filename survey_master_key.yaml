@@ -182,3 +182,154 @@ O-LIFE:
       - O-LIFE_43
 
 
+Loc:
+  type: matrix
+  keywords: 
+    - Loc 
+  scale_name: Loc
+
+  response_map: 
+    Strongly Disagree: -3
+    Disagree: -2
+    Slightly Disagree: -1
+    Slightly Agree: 1
+    Agree: 2
+    Strongly Agree: 3
+
+  reverse_columns: {}
+
+  sections:
+    Internal Scale:
+      - Loc_1
+      - Loc_4
+      - Loc_5
+      - Loc_9
+      - Loc_18
+      - Loc_19
+      - Loc_21
+      - Loc_23
+
+    Power Other Scale:
+      - Loc_3
+      - Loc_8
+      - Loc_11
+      - Loc_13
+      - Loc_15
+      - Loc_17
+      - Loc_20
+      - Loc_22
+
+    Chance Scale:
+      - Loc_2
+      - Loc_6
+      - Loc_7
+      - Loc_10
+      - Loc_12
+      - Loc_14
+      - Loc_16
+      - Loc_24
+
+
+Hood: 
+  type: matrix
+  keywords: 
+    - Hood
+  scale_name: Hood
+  response_map: 
+    Strongly Disagree: -2
+    Disagree: -1
+    Neither Agree nor Disagree: 0
+    Slightly Agree: 1
+    Agree: 2
+
+  reverse_columns: 
+    - Hood_2
+    - Hood_6
+    - Hood_7
+    - Hood_8
+    - Hood_9
+    - Hood_10
+    - Hood_14
+    - Hood_15
+    - Hood_16
+    - Hood_21
+    - Hood_24
+    - Hood_25
+    - Hood_26
+    - Hood_27
+    - Hood_28
+    - Hood_30
+
+    Intense Experience of Unity:
+      - Hood_1
+      - Hood_2
+      - Hood_4
+      - Hood_6
+      - Hood_8
+      - Hood_10
+      - Hood_11
+      - Hood_12
+      - Hood_15
+      - Hood_18
+      - Hood_19
+      - Hood_21
+      - Hood_23
+      - Hood_24
+      - Hood_27
+      - Hood_28
+      - Hood_29
+      - Hood_30
+      - Hood_31
+      - Hood_32
+
+    Affectively Charged Religious Revelation:
+      - Hood_3
+      - Hood_5
+      - Hood_7
+      - Hood_9
+      - Hood_13
+      - Hood_14
+      - Hood_16
+      - Hood_17
+      - Hood_20
+      - Hood_22
+      - Hood_25
+      - Hood_26
+
+    Extrovertive Mysticism:
+      - Hood_6
+      - Hood_8
+      - Hood_10
+      - Hood_12
+      - Hood_15
+      - Hood_19
+      - Hood_24
+      - Hood_27
+      - Hood_28
+      - Hood_29
+      - Hood_30
+      - Hood_31
+
+    Religious Interpretation:
+      - Hood_5
+      - Hood_7
+      - Hood_9
+      - Hood_13
+      - Hood_14
+      - Hood_16
+      - Hood_17
+      - Hood_18
+      - Hood_20
+      - Hood_22
+      - Hood_25
+      - Hood_26
+
+    Introvertive Mysticism:
+      - Hood_1
+      - Hood_2
+      - Hood_3
+      - Hood_4
+      - Hood_11
+      - Hood_21
+      - Hood_23
+      - Hood_32
