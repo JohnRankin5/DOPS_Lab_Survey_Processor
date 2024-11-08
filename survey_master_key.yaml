@@ -333,3 +333,25 @@ Hood:
       - Hood_21
       - Hood_23
       - Hood_32
+
+
+EHI:
+  type: matrix
+  keywords: 
+    - EHI
+  scale_name: EHI
+  response_map: 
+    Always Right: 100
+    Usually Right: 50
+    Both Equally: 0
+    Usually Left: -50
+    Always Left: -100
+
+  reverse_columns: {}
+
+  sections:
+    Edinburgh Handedness Inventory:
+      - EHI_1
+      - EHI_2
+      - EHI_3
+      - EHI_4
