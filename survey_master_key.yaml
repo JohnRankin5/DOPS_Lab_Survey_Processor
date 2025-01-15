@@ -120,6 +120,13 @@ DES:
       - DES_27
       - DES_28
 
+# des_amn = (DES3 + DES4 + DES5 + DES6 + DES8 + DES10 + DES25 + DES26)/8 ; * amnestic dissociation subscale;
+#  des_abs =  (DES2 + DES14 + DES15 + DES16 + DES17 + DES18 + DES20 + DES22 + DES23)/9;  * absorption and imaginative involvement; 
+#  des_dep = (DES7 + DES11 + DES12 + DES13 + DES27 + DES28)/6;  * depersonalization and derealization;
+
+#  des_tax = (DES3 + DES5 + DES7 + DES8 + DES12 + DES13 + DES22 + DES27)/8; * taxon;
+
+
 O-LIFE:
   type: multiple_choice_binary  # For Yes/No questions
   keywords:
@@ -355,3 +362,50 @@ EHI:
       - EHI_2
       - EHI_3
       - EHI_4
+
+
+TAS:
+  type: matrix
+  keywords: 
+    - TAS
+  scale_name: TAS
+  response_map: 
+    True: 1
+    False: 0
+    
+  sections:
+    TAS:
+      - TAS_1
+      - TAS_2
+      - TAS_3
+      - TAS_4
+      - TAS_5
+      - TAS_6
+      - TAS_7
+      - TAS_8
+      - TAS_9
+      - TAS_10
+      - TAS_11
+      - TAS_12
+      - TAS_13
+      - TAS_14
+      - TAS_15
+      - TAS_16
+      - TAS_17
+      - TAS_18
+      - TAS_19
+      - TAS_20
+      - TAS_21
+      - TAS_22
+      - TAS_23
+      - TAS_24
+      - TAS_25
+      - TAS_26
+      - TAS_27
+      - TAS_28
+      - TAS_29
+      - TAS_30
+      - TAS_31
+      - TAS_32
+      - TAS_33
+      - TAS_34
