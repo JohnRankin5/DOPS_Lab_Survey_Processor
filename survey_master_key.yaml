@@ -372,7 +372,7 @@ TAS:
     False: 0
   
   reverse_columns: {}
-  
+
   sections:
     TAS:
       - TAS_1
@@ -409,3 +409,92 @@ TAS:
       - TAS_32
       - TAS_33
       - TAS_34
+
+
+RPBS:
+  type: multiple_choice_average
+  keywords: 
+    - RPBS
+  scale_name: RPBS
+  response_map: 
+    Strongly Disagree: 1
+    Moderately Disagree: 2
+    Sightly Disagree: 3
+    Uncertain: 4
+    Slighly Agree: 5
+    Agree: 6
+    Strongly Agree: 7
+
+  reverse_columns: {}
+
+  sections:
+    raditional Religious Belief:
+      - RPBS_1
+      - RPBS_8
+      - RPBS_15
+      - RPBS_22
+    psi:
+      - RPBS_2
+      - RPBS_9
+      - RPBS_16
+      - RPBS_23
+    Witchcraft:
+      - RPBS_3
+      - RPBS_10
+      - RPBS_17
+      - RPBS_24
+    Superstition:
+      - RPBS_4
+      - RPBS_11
+      - RPBS_18
+    Spiritualism:
+      - RPBS_5
+      - RPBS_12
+      - RPBS_19
+      - RPBS_25
+    Extraordinary Life Forms:
+      - RPBS_6
+      - RPBS_13
+      - RPBS_20
+    Precognition:
+      - RPBS_7
+      - RPBS_14
+      - RPBS_21
+      - RPBS_26
+
+
+
+BT:
+  type: matrix
+  keywords:
+    - BoundThin
+  scale_name: BT
+  response_map:
+    Not at all true: 0
+    Somewhat true: 1
+    Netural: 2
+    Mostly true: 3
+    Very true:  4
+  reverse_columns: {}
+  sections:
+    BT:
+      - BoundThin_1
+      - BoundThin_2
+      - BoundThin_3
+      - BoundThin_4
+      - BoundThin_5
+      - BoundThin_6
+      - BoundThin_7
+      - BoundThin_8
+      - BoundThin_9
+      - BoundThin_10
+      - BoundThin_11
+      - BoundThin_12
+      - BoundThin_13
+      - BoundThin_14
+      - BoundThin_15
+      - BoundThin_16
+      - BoundThin_17
+      - BoundThin_18
+
+
