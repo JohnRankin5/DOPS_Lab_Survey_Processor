@@ -106,7 +106,28 @@ def process_subscales(df, scale_name):
             # Store the total score for the section
             scores[section_name] = section_score
 
+
+    
+    elif q_type == "multiple_choice_average":
+        for section_name, items in sections.items():
+            section_score = 0
+            for item in items:
+                if item in df.columns:
+                    # Map responses to numerical scores
+                    df[item] = df[item].apply(lambda x: map_response_to_score(x, response_map))
+                    # Apply reverse scoring if necessary
+                    if item in reverse_columns:
+                        df[item] = df[item].apply(lambda x: reverse_score_binary(x) if pd.notna(x) else x)
+                    # Sum the scores for the section
+                    section_score += df[item].sum()
+            # Store the total score for the section
+            scores[section_name] = section_score / len(items)
+
+
     elif q_type == "slider":
+    
+
+
         # Slider Question Processing
         for section_name, items in sections.items():
             section_score = 0
@@ -122,7 +143,10 @@ def process_subscales(df, scale_name):
                 scores[section_name] = round(average_score, 3)  # Store the average score
             else:
                 scores[section_name] = 0
+
+                
     return scores
+
 
 
 

@@ -120,13 +120,6 @@ DES:
       - DES_27
       - DES_28
 
-# des_amn = (DES3 + DES4 + DES5 + DES6 + DES8 + DES10 + DES25 + DES26)/8 ; * amnestic dissociation subscale;
-#  des_abs =  (DES2 + DES14 + DES15 + DES16 + DES17 + DES18 + DES20 + DES22 + DES23)/9;  * absorption and imaginative involvement; 
-#  des_dep = (DES7 + DES11 + DES12 + DES13 + DES27 + DES28)/6;  * depersonalization and derealization;
-
-#  des_tax = (DES3 + DES5 + DES7 + DES8 + DES12 + DES13 + DES22 + DES27)/8; * taxon;
-
-
 O-LIFE:
   type: multiple_choice_binary  # For Yes/No questions
   keywords:
@@ -237,6 +230,8 @@ Loc:
       - Loc_24
 
 
+
+
 Hood: 
   type: matrix
   keywords: 
@@ -267,6 +262,7 @@ Hood:
     - Hood_28
     - Hood_30
 
+  sections:
     Intense Experience of Unity:
       - Hood_1
       - Hood_2
@@ -342,6 +338,7 @@ Hood:
       - Hood_32
 
 
+
 EHI:
   type: matrix
   keywords: 
@@ -364,6 +361,7 @@ EHI:
       - EHI_4
 
 
+
 TAS:
   type: matrix
   keywords: 
@@ -372,7 +370,9 @@ TAS:
   response_map: 
     True: 1
     False: 0
-    
+  
+  reverse_columns: {}
+  
   sections:
     TAS:
       - TAS_1
