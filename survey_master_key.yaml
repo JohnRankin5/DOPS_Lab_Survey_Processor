@@ -498,3 +498,251 @@ BT:
       - BoundThin_18
 
 
+IPIP:
+  type: matrix
+  keywords:
+    - IPIP
+  scale_name: IPIP-NEO-120
+  response_map:
+    Very Inaccurate: 1
+    Moderatley Inaccurate: 2
+    Neither: 3
+    Moderately Accurate: 4
+    Very Accurate: 5
+    I do not wish to answer: 0
+
+  reverse_columns:
+    - IPIP_(-)N8_ang4
+    - IPIP_(-)N12_dep4
+    - IPIP_(-)N16_con4
+    - IPIP_(-)N18_immod2
+    - IPIP_(-)N19_immod3
+    - IPIP_(-)N20_immod4
+    - IPIP_(-)N23_vuln4
+    - IPIP_(-)E3_friend3
+    - IPIP_(-)E4_friend4
+    - IPIP_(-)E7_greg3
+    - IPIP_(-)E8_greg4
+    - IPIP_(-)E12_assert4
+    - IPIP_(-)E16_act4
+    - IPIP_(-)O7_art3
+    - IPIP_(-)O8_art4
+    - IPIP_(-)O11_emot3
+    - IPIP_(-)O12_emot4
+    - IPIP_(-)O14_advent2
+    - IPIP_(-)O15_advent3
+    - IPIP_(-)O16_advent4
+    - IPIP_(-)O18_intel2
+    - IPIP_(-)O19_intel3
+    - IPIP_(-)O20_intel4
+    - IPIP_(-)O23_liberal3
+    - IPIP_(-)O24_liberal4
+    - IPIP_(-)A4_trust4
+    - IPIP_(-)A11_altru3
+    - IPIP_(-)A12_altru4
+    - IPIP_(-)A13_coop1
+    - IPIP_(-)A14_coop2
+    - IPIP_(-)A15_coop3
+    - IPIP_(-)A16_coop4
+    - IPIP_(-)A17_mod1
+    - IPIP_(-)A18_mod2
+    - IPIP_(-)A19_mod3
+    - IPIP_(-)A20_mod4
+    - IPIP_(-)A23_symp3
+    - IPIP_(-)A24_symp4
+    - IPIP_(-)C6_order2
+    - IPIP_(-)C7_order3
+    - IPIP_(-)C8_order4
+    - IPIP_(-)C11_duty3
+    - IPIP_(-)C12_duty4
+    - IPIP_(-)C15_achieve3
+    - IPIP_(-)C16_achieve4
+    - IPIP_(-)C19_disc3
+    - IPIP_(-)C20_disc4
+    - IPIP_(-)C21_caut1
+    - IPIP_(-)C22_caut2
+    - IPIP_(-)C23_caut3
+    - IPIP_(-)C24_caut4
+      
+      
+
+
+  sections:
+    #Neuroticism Section:
+    Neuroticism-Anxiety:
+      - IPIP_N1_anx1
+      - IPIP_N2_anx2
+      - IPIP_N3_anx3
+      - IPIP_N4_anx4
+    Neuroticism-Anger:
+      - IPIP_N5_ang1
+      - IPIP_N6_ang2
+      - IPIP_N7_ang3
+      - IPIP_(-)N8_ang4
+    Neuroticism-Depression:
+      - IPIP_N9_dep1
+      - IPIP_N10_dep2
+      - IPIP_N11_dep3
+      - IPIP_(-)N12_dep4
+    Neuroticism-Self-Consciousness:
+      - IPIP_N13_con1
+      - IPIP_N14_con2
+      - IPIP_N15_con3
+      - IPIP_(-)N16_con4
+    Neuroticism-Immoderation:
+      - IPIP_N17_imo1
+      - IPIP_(-)N18_immod2
+      - IPIP_(-)N19_immod3
+      - IPIP_(-)N20_immod4
+    Neuroticism-Vulnerability:
+      - IPIP_N21_vul1
+      - IPIP_N22_vul2
+      - IPIP_N23_vul3
+      - IPIP_(-)N23_vuln4
+    #Extraversion Section:
+    Extraversion-Friendliness:
+      - IPIP_E1_friend1
+      - IPIP_E2_friend2
+      - IPIP_(-)E3_friend3
+      - IPIP_(-)E4_friend4
+    Extraversion-Gregariousness:
+      - IPIP_E5_greg1
+      - IPIP_E6_greg2
+      - IPIP_(-)E7_greg3
+      - IPIP_(-)E8_greg4
+    Extraversion-Assertiveness:
+      - IPIP_E9_asster1
+      - IPIP_E10_assert2
+      - IPIP_E10_assert2
+      - IPIP_E11_assert3
+      - IPIP_(-)E12_assert4
+    Extraversion-Activity:
+      - IPIP_E13_act1
+      - IPIP_E14_act2
+      - IPIP_E15_act3
+      - IPIP_(-)E16_act4
+    Extraversion-Excitement-Seeking:
+      - IPIP_E17_excite1
+      - IPIP_E18_excite2
+      - IPIP_E19_excite3
+      - IPIP_E20_excite4
+    Extraversion-Cheerfulness:
+      - IPIP_E21_cheer1
+      - IPIP_E22_cheer2
+      - IPIP_E23_cheer3
+      - IPIP_E24_cheer4
+    #Openness to Experience Section:
+    Openness to Experience-Imagination:
+      - IPIP_O1_image1
+      - IPIP_O2_image2
+      - IPIP_O3_image3
+      - IPIP_O4_image4
+    Openness to Experience-Artistic Interests:
+      - IPIP_O5_art1
+      - IPIP_O6_art2
+      - IPIP_(-)O7_art3
+      - IPIP_(-)O8_art4
+    Openness to Experience-Emotionality:
+      - IPIP_O9_emot1
+      - IPIP_O10_emot2
+      - IPIP_(-)O11_emot3
+      - IPIP_(-)O12_emot4
+    Openness to Experience-Adventureousness:
+      - IPIP_O13_advent1
+      - IPIP_(-)O14_advent2
+      - IPIP_(-)O15_advent3
+      - IPIP_(-)O16_advent4
+    Openness to Experience-Intellect:
+      - IPIP_O17_intel1
+      - IPIP_(-)O18_intel2
+      - IPIP_(-)O19_intel3
+      - IPIP_(-)O20_intel4
+    Openness to Experience-Liberalism:
+      - IPIP_O21_liberal1
+      - IPIP_O22_liberal2
+      - IPIP_(-)O23_liberal3
+      - IPIP_(-)O24_liberal4
+    #Agreeableness Section:
+    Agreeableness-Trust:
+      - IPIP_A1_trust1
+      - IPIP_A2_trust2
+      - IPIP_A3_trust3
+      - IPIP_(-)A4_trust4
+    Agreeableness-Morality:
+      - IPIP_(-)A5_moral1
+      - IPIP_(-)A6_moral2
+      - IPIP_(-)A7_moral3
+      - IPIP_(-)A8_moral4
+    Agreeableness-Altruism:
+      - IPIP_A9_altru1
+      - IPIP_A10_altru2
+      - IPIP_(-)A11_altru3
+      - IPIP_(-)A12_altru4
+    Agreeableness-Cooperation:
+      - IPIP_(-)A13_coop1
+      - IPIP_(-)A14_coop2
+      - IPIP_(-)A15_coop3
+      - IPIP_(-)A16_coop4
+    Agreeableness-Modesty:
+      - IPIP_(-)A17_mod1
+      - IPIP_(-)A18_mod2
+      - IPIP_(-)A19_mod3
+      - IPIP_(-)A20_mod4
+    Agreeableness-Tender-Sympathy:
+      - IPIP_A21_symp1
+      - IPIP_A22_symp2
+      - IPIP_(-)A23_symp3
+      - IPIP_(-)A24_symp4
+    
+    #Conscientiousness Section:
+    Conscientiousness-Self-Efficacy:
+      - IPIP_C1_effic1
+      - IPIP_C2_effic2
+      - IPIP_C3_effic3
+      - IPIP_C4_effic4
+    Conscientiousness-Orderliness:
+      - IPIP_C5_order1
+      - IPIP_(-)C6_order2
+      - IPIP_(-)C7_order3
+      - IPIP_(-)C8_order4
+    Conscientiousness-Dutifulness:
+      - IPIP_C9_duty1
+      - IPIP_C10_duty2
+      - IPIP_(-)C11_duty3
+      - IPIP_(-)C12_duty4
+    Conscientiousness-Achievement-Striving:
+      - IPIP_C13_achieve1
+      - IPIP_C14_achieve2
+      - IPIP_(-)C15_achieve3
+      - IPIP_(-)C16_achieve4
+    Conscientiousness-Self-Discipline:
+      - IPIP_C17_disc1
+      - IPIP_C18_disc2
+      - IPIP_(-)C19_disc3
+      - IPIP_(-)C20_disc4
+    Conscientiousness-Cautiousness:
+      - IPIP_(-)C21_caut1
+      - IPIP_(-)C22_caut2
+      - IPIP_(-)C23_caut3
+      - IPIP_(-)C24_caut4
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+      
+    
+
+
