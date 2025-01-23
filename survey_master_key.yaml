@@ -729,6 +729,34 @@ IPIP:
 
 
 
+Trans:
+  type: multiple_choice_binary
+  keywords: 
+    - Trans
+  scale_name: Trans
+  response_map: 
+    True: 1
+    False: 0
+  reverse_columns: []
+  sections:
+    Transcendence Scale:
+      - Trans_1
+      - Trans_2
+      - Trans_3
+      - Trans_4
+      - Trans_5
+      - Trans_6
+      - Trans_7
+      - Trans_8
+      - Trans_9
+      - Trans_10
+      - Trans_11
+      - Trans_12
+      - Trans_13
+      - Trans_14
+      - Trans_15
+      - Trans_16
+      - Trans_17
 
 
 
