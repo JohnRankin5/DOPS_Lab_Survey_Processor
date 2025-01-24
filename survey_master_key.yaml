@@ -729,17 +729,17 @@ IPIP:
 
 
 
-Trans:
+Transliminality:
   type: multiple_choice_binary
   keywords: 
     - Trans
-  scale_name: Trans
+  scale_name: Transliminality
   response_map: 
     True: 1
     False: 0
   reverse_columns: []
   sections:
-    Transcendence Scale:
+    Transliminality Scale:
       - Trans_1
       - Trans_2
       - Trans_3
@@ -759,8 +759,87 @@ Trans:
       - Trans_17
 
 
+Cognition:
+  type: matrix
+  keywords: 
+    - Cog
+  scale_name: Transliminality
+  response_map: 
+    Extremely Uncharacteristic of Me: 1
+    Somewhat Uncharacteristic: 2
+    Uncertain: 3
+    Somewhat Characteristic: 4
+    Extremely Characteristic of Me: 5
+
+  reverse_columns: 
+    - Cog_7(-)
+    - Cog_8(-)
+    - Cog_9(-)
+    - Cog_12(-)
+    - Cog_16(-)
+    - Cog_17(-)
+  sections:
+    Cognition Scale:
+    - Cog_1
+    - Cog_2
+    - Cog_6
+    - Cog_7(-)
+    - Cog_8(-)
+    - Cog_9(-)
+    - Cog_10
+    - Cog_11
+    - Cog_12(-)
+    - Cog_13
+    - Cog_14
+    - Cog_15
+    - Cog_16(-)
+    - Cog_17(-)
+    - Cog_18
 
 
+Highly Sensitive Person Scale:
+  type: matrix
+  keywords: 
+    - SensProc
+  scale_name: Highly Sensitive Person Scale
+  response_map: 
+    Not at All : 1
+    2 : 2
+    3 : 3
+    Moderately : 4
+    5 : 5
+    6 : 6
+    Extremely : 7
+  reverse_columns: []
+  sections:
+    Highly Sensitive Person Scale:
+    - SensProc_1
+    - SensProc_2
+    - SensProc_3
+    - SensProc_4
+    - SensProc_5
+    - SensProc_6
+    - SensProc_7
+    - SensProc_8
+    - SensProc_9
+    - SensProc_10
+    - SensProc_11
+    - SensProc_12
+    - SensProc_13
+    - SensProc_14
+    - SensProc_15
+    - SensProc_16
+    - SensProc_17
+    - SensProc_18
+    - SensProc_19
+    - SensProc_20
+    - SensProc_21
+    - SensProc_22
+    - SensProc_23
+    - SensProc_24
+    - SensProc_25
+    - SensProc_26
+    - SensProc_27
 
 
 
