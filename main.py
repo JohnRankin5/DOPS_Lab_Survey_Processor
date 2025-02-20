@@ -3,12 +3,15 @@ import tkinter as tk
 from tkinter import filedialog, messagebox
 import yaml
 import gc  # For garbage collection to clean memory
+import re  # For extracting custom scale numbers
+import importlib
+
 
 # Global variables
 df_global = None  # To store the uploaded DataFrame
 master_score = pd.DataFrame()  # To store the computed scores
 participant_df = pd.DataFrame()  # To store the participant's data
-individual = False # To check if the user selected 'Individual' option
+# individual = False # To check if the user selected 'Individual' option
 
 # Load the YAML file containing the master key for the survey scales
 with open('survey_master_key.yaml', 'r') as f:
@@ -48,6 +51,7 @@ def upload_file():
     else:
         messagebox.showwarning("No File", "No file was selected!")
 
+
 # Function to map text responses to numerical scores
 def map_response_to_score(response, response_map):
     return response_map.get(response, None)
@@ -60,11 +64,68 @@ def reverse_score(score, max_score):
 def reverse_score_binary(score):
     return abs(1 - score)  # Flip between 0 and 1
 
+# Function to check if a scale requires custom processing
+def check_for_custom_scale(scale_name):
+    response_map = master_key[scale_name][0]  # Extract response_map from master_key
+    if isinstance(response_map, str) and response_map.lower().startswith("custom"):
+        match = re.search(r"custom(\d+)", response_map.lower())  # Extract number
+        if match:
+            return int(match.group(1))  # Return the custom number for processing
+    return None
+
+
+def process_custom_scale(df, scale_name, custom_number):
+    """
+    Function to handle custom scale processing.
+    Different custom numbers can have different implementations.
+    """
+    print(f"Processing custom scale: {scale_name} with Custom Number {custom_number}")
+
+    
+
+
+
+
+def process_custom_scale(df, scale_name, custom_number):
+    """
+    Dynamically imports and runs the appropriate custom scale processing function.
+    """
+    print(f"Processing custom scale: {scale_name} with Custom Number {custom_number}")
+
+    try:
+        # Dynamically import the module containing custom functions
+        custom_module = importlib.import_module("custom_processing")  # Assuming custom functions are in 'custom_processing.py'
+        
+        # Generate the function name dynamically (e.g., process_custom_1)
+        function_name = f"process_custom_{custom_number}"
+
+        # Check if the function exists in the imported module
+        if hasattr(custom_module, function_name):
+            custom_function = getattr(custom_module, function_name)
+            return custom_function(df, scale_name, master_key)
+        else:
+            print(f"Custom function '{function_name}' not found in custom_processing.py")
+            return None
+    except ModuleNotFoundError:
+        print("Custom processing module not found. Please ensure 'custom_processing.py' exists.")
+        return None
+
+
+
+
 # Function to process subscales based on question type
 def process_subscales(df, scale_name):
     if df is None or scale_name not in master_key:
         print("Data or master key is not loaded")
         return
+
+
+
+    custom_number = check_for_custom_scale(scale_name)
+    if custom_number:
+        return process_custom_scale(df, scale_name, custom_number)
+    
+
 
     # Retrieve details from the master key for the given scale
     scale_details = master_key[scale_name]
@@ -149,31 +210,30 @@ def process_subscales(df, scale_name):
 
 
 
+# def process_data_by_last_name(last_name):
+#     global individual, participant_df
+#     individual = True # Set individual to True
+#     # Check if df_global and master_key have data
+#     if df_global is None or master_key is None:
+#         messagebox.showwarning("No Data", "No data available! Please upload a file and load the master key.")
+#         return
 
-def process_data_by_last_name(last_name):
-    global individual, participant_df
-    individual = True # Set individual to True
-    # Check if df_global and master_key have data
-    if df_global is None or master_key is None:
-        messagebox.showwarning("No Data", "No data available! Please upload a file and load the master key.")
-        return
-
-    # Find the row of the participant by last name
-    matched_row = df_global[df_global['RecipientLastName'].str.lower() == last_name.lower()]
+#     # Find the row of the participant by last name
+#     matched_row = df_global[df_global['RecipientLastName'].str.lower() == last_name.lower()]
     
-    # Check if the participant was found
-    if matched_row.empty:
-        messagebox.showinfo("No Results", f"No results found for '{last_name}'.")
-        return
-    else:
-        messagebox.showinfo("Participant Found", f"Participant '{last_name}' found")
+#     # Check if the participant was found
+#     if matched_row.empty:
+#         messagebox.showinfo("No Results", f"No results found for '{last_name}'.")
+#         return
+#     else:
+#         messagebox.showinfo("Participant Found", f"Participant '{last_name}' found")
 
-    # Extract the participant's data into a new DataFrame
-    participant_df = pd.concat([df_global.iloc[:2], matched_row], ignore_index=True)
+#     # Extract the participant's data into a new DataFrame
+#     participant_df = pd.concat([df_global.iloc[:2], matched_row], ignore_index=True)
 
 
-    # Process each scale using the process_subscales function
-    process_survey(participant_df)
+#     # Process each scale using the process_subscales function
+#     process_survey(participant_df)
 
 
 
@@ -196,13 +256,10 @@ def process_survey(df):
         combined_scores_df = pd.DataFrame([combined_scores])
         master_score = pd.concat([master_score, combined_scores_df], ignore_index=True)
 
-# Function to clear sensitive data from memory
-def clear_sensitive_data():
-    global df_global
-    if df_global is not None:
-        del df_global  # Clear the DataFrame from memory
-        df_global = None  # Reset the global variable
-    gc.collect()  # Force garbage collection
+
+
+
+
 
 # Function to create the GUI using tkinter
 def make_UI():
@@ -214,15 +271,15 @@ def make_UI():
         else:
             messagebox.showwarning("No Data", "No data available! Please upload a file.")
 
-    # Function for 'Individual' button action
-    def individual_action():
-        global individual  # Declare individual as global
-        individual = True
-        last_name = entry_last_name.get()
-        if last_name:
-            process_data_by_last_name(last_name)  # Call the processing function with the entered last name
-        else:
-            messagebox.showwarning("Input Error", "Please enter a last name!")
+    # # Function for 'Individual' button action
+    # def individual_action():
+    #     global individual  # Declare individual as global
+    #     individual = True
+    #     last_name = entry_last_name.get()
+    #     if last_name:
+    #         process_data_by_last_name(last_name)  # Call the processing function with the entered last name
+    #     else:
+    #         messagebox.showwarning("Input Error", "Please enter a last name!")
 
 
     # Create the root window
@@ -252,50 +309,59 @@ def make_UI():
     everyone_btn = tk.Button(root, text="Everyone", command=everyone_action, **button_style)
     everyone_btn.pack(pady=10)
 
-    # Search by Individual
-    label_last_name = tk.Label(root, text="Search by Last Name:", **label_style)
-    label_last_name.pack(pady=10)
+    # # Search by Individual
+    # label_last_name = tk.Label(root, text="Search by Last Name:", **label_style)
+    # label_last_name.pack(pady=10)
 
     entry_last_name = tk.Entry(root, width=30, **entry_style)
     entry_last_name.pack(pady=10)
 
-    individual_btn = tk.Button(root, text="Individual", command=individual_action, **button_style)
-    individual_btn.pack(pady=10)
+    # individual_btn = tk.Button(root, text="Individual", command=individual_action, **button_style)
+    # individual_btn.pack(pady=10)
 
     # Start the application
     root.mainloop()
 
 # Start the GUI application
 make_UI()
-
-# After GUI closes, process and save the master_score DataFrame
+    
+    # After GUI closes, process and save the master_score DataFrame
 if df_global is not None:
 
 
-    if individual:
-
-            df_cleaned = participant_df.iloc[2:]
-            # Extract the last name and response ID columns after skipping the first two rows
-            last_names = df_cleaned[['RecipientLastName', 'ResponseId']].reset_index(drop=True)
 
 
+    # Make a copy of df_global for processing
+    df_cleaned = df_global.copy()
 
-            # Insert the last names and response IDs into the master_score DataFrame as the first columns
-            master_score.insert(0, 'ResponseId', last_names['ResponseId'])
-            master_score.insert(0, 'Last Name', last_names['RecipientLastName'])
+    # Set the correct column headers from the first row (index 0), NOT row 1
+    df_cleaned.columns = df_global.iloc[0].str.strip().str.lower()
 
-        
- 
+    # Drop the first two rows (metadata)
+    df_cleaned = df_cleaned.iloc[2:].reset_index(drop=True)
+
+    # Load the YAML file and extract custom columns
+    with open('config.yaml', 'r') as f:
+        config_yaml = yaml.safe_load(f)
+
+    custom_columns = [col.strip().lower() for col in config_yaml.get("custom_columns", [])]
+
+    # Identify which columns exist in df_cleaned
+    existing_columns = [col for col in custom_columns if col in df_cleaned.columns]
+
+    # Debugging prints
+    # print("Processed CSV Headers:", df_cleaned.columns.tolist())
+    # print("YAML Custom Columns:", custom_columns)
+    # print("Matching Columns:", existing_columns)
+
+    if not existing_columns:
+        print("No matching columns found. Check config.yaml and CSV headers.")
     else:
-        # Remove the first two rows from df_global
-        df_cleaned = df_global.iloc[2:]
+        for column in reversed(existing_columns):
+            master_score.insert(0, column, df_cleaned[column].reset_index(drop=True))
 
-        # Extract the last name and response ID columns after skipping the first two rows
-        last_names = df_cleaned[['RecipientLastName', 'ResponseId']].reset_index(drop=True)
+        print(f"Added columns to master_score: {existing_columns}")
 
-        # Insert the last names and response IDs into the master_score DataFrame as the first columns
-        master_score.insert(0, 'ResponseId', last_names['ResponseId'])
-        master_score.insert(0, 'Last Name', last_names['RecipientLastName'])
 
     # Prompt user to specify the save location and file name
     file_path = filedialog.asksaveasfilename(
@@ -312,9 +378,6 @@ if df_global is not None:
     else:
         print("Save operation was canceled.")
 
-
-
-    # Clear sensitive data from memory
-    clear_sensitive_data()
+    
 else:
     print("No data was processed.")
