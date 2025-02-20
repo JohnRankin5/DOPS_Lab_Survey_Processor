@@ -64,149 +64,80 @@ def reverse_score(score, max_score):
 def reverse_score_binary(score):
     return abs(1 - score)  # Flip between 0 and 1
 
-# Function to check if a scale requires custom processing
-def check_for_custom_scale(scale_name):
-    response_map = master_key[scale_name][0]  # Extract response_map from master_key
-    if isinstance(response_map, str) and response_map.lower().startswith("custom"):
-        match = re.search(r"custom(\d+)", response_map.lower())  # Extract number
-        if match:
-            return int(match.group(1))  # Return the custom number for processing
-    return None
-
-
-def process_custom_scale(df, scale_name, custom_number):
-    """
-    Function to handle custom scale processing.
-    Different custom numbers can have different implementations.
-    """
-    print(f"Processing custom scale: {scale_name} with Custom Number {custom_number}")
-
-    
 
 
 
 
-def process_custom_scale(df, scale_name, custom_number):
-    """
-    Dynamically imports and runs the appropriate custom scale processing function.
-    """
-    print(f"Processing custom scale: {scale_name} with Custom Number {custom_number}")
-
-    try:
-        # Dynamically import the module containing custom functions
-        custom_module = importlib.import_module("custom_processing")  # Assuming custom functions are in 'custom_processing.py'
-        
-        # Generate the function name dynamically (e.g., process_custom_1)
-        function_name = f"process_custom_{custom_number}"
-
-        # Check if the function exists in the imported module
-        if hasattr(custom_module, function_name):
-            custom_function = getattr(custom_module, function_name)
-            return custom_function(df, scale_name, master_key)
-        else:
-            print(f"Custom function '{function_name}' not found in custom_processing.py")
-            return None
-    except ModuleNotFoundError:
-        print("Custom processing module not found. Please ensure 'custom_processing.py' exists.")
-        return None
 
 
 
 
-# Function to process subscales based on question type
 def process_subscales(df, scale_name):
     if df is None or scale_name not in master_key:
         print("Data or master key is not loaded")
         return
 
-
-
-    custom_number = check_for_custom_scale(scale_name)
-    if custom_number:
-        return process_custom_scale(df, scale_name, custom_number)
-    
-
-
     # Retrieve details from the master key for the given scale
     scale_details = master_key[scale_name]
     q_type, keywords, scale, response_map, reverse_columns, sections = scale_details
-    max_score = max(response_map.values()) if response_map else None  # For matrix and multiple choice
 
-    # Initialize a dictionary to store scores for each section
+    # Check if response_map is a dictionary or a custom logic trigger (like 'custom')
+    if isinstance(response_map, dict):
+        max_score = max(response_map.values()) if response_map else None  # For matrix and multiple choice
+    else:
+        max_score = None  # If it's a custom scale, no max score
+
     scores = {}
 
     if q_type == "matrix":
-        # Matrix Question Processing
         for section_name, items in sections.items():
             section_score = 0
             for item in items:
                 if item in df.columns:
-                    # Map responses to numerical scores
                     df[item] = df[item].apply(lambda x: map_response_to_score(x, response_map))
-                    # Apply reverse scoring if necessary
                     if item in reverse_columns:
                         df[item] = df[item].apply(lambda x: reverse_score(x, max_score) if pd.notna(x) else x)
-                    # Sum the scores for the section
                     section_score += df[item].sum()
-            # Store the total score for the section
             scores[section_name] = section_score
 
     elif q_type == "multiple_choice_binary":
-        # Binary (yes/no) questions processing
         for section_name, items in sections.items():
             section_score = 0
             for item in items:
                 if item in df.columns:
-                    # Map responses to numerical scores
                     df[item] = df[item].apply(lambda x: map_response_to_score(x, response_map))
-                    # Apply reverse scoring if necessary
                     if item in reverse_columns:
                         df[item] = df[item].apply(lambda x: reverse_score_binary(x) if pd.notna(x) else x)
-                    # Sum the scores for the section
                     section_score += df[item].sum()
-            # Store the total score for the section
             scores[section_name] = section_score
 
-
-    
     elif q_type == "multiple_choice_average":
         for section_name, items in sections.items():
             section_score = 0
             for item in items:
                 if item in df.columns:
-                    # Map responses to numerical scores
                     df[item] = df[item].apply(lambda x: map_response_to_score(x, response_map))
-                    # Apply reverse scoring if necessary
                     if item in reverse_columns:
                         df[item] = df[item].apply(lambda x: reverse_score_binary(x) if pd.notna(x) else x)
-                    # Sum the scores for the section
                     section_score += df[item].sum()
-            # Store the total score for the section
             scores[section_name] = section_score / len(items)
 
-
     elif q_type == "slider":
-    
-
-
-        # Slider Question Processing
         for section_name, items in sections.items():
             section_score = 0
-            valid_items = 0  # Count valid items for averaging
+            valid_items = 0
             for item in items:
                 if item in df.columns:
-                    # Sum up all the slider values (assumed to be percentages)
                     section_score += df[item].astype(float).sum()
                     valid_items += 1
-            # Calculate the average score (sum divided by number of items)
             if valid_items > 0:
                 average_score = section_score / valid_items
-                scores[section_name] = round(average_score, 3)  # Store the average score
+                scores[section_name] = round(average_score, 3)
             else:
                 scores[section_name] = 0
 
-                
     return scores
+
 
 
 
