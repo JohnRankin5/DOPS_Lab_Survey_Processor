@@ -87,8 +87,8 @@ DES:
   keywords: 
     - DES
   scale_name: DES
-  response_map: {}
-  reverse_columns: []
+  response_map: {} 
+  reverse_columns: [] 
   sections:
     Dissociative Experiences Total: 
       - DES_1
