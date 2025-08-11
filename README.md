@@ -19,7 +19,7 @@ conda activate survey
 pip install pandas PyYAML
 ```
 
-### 2) Files expected in the working folder
+### 2) Files expected in the **working** folder
 ```
 survey_master_key.yaml   # Scoring rules for all scales
 config.yaml              # Defines which CSV columns to copy to the output
@@ -31,6 +31,9 @@ main.py                  # The main script
 ```bash
 python main.py
 ```
+
+Make sure you are in the src directory
+
 1. Click **Upload File** → select your CSV file.
 2. Click **Everyone** → compute scores for all participants.
 3. When the GUI closes, a Save dialog will appear → choose where to save the final CSV.
@@ -58,6 +61,8 @@ MyScaleA:
     Satisfaction: ["Q4","Q5","Q6"]
 ```
 
+Look at the example yaml file
+
 **Notes on `type`:**
 - **matrix** → sums mapped item scores per section; reverse scoring uses `max(response_map.values())`.
 - **multiple_choice_binary** → maps to 0/1 and sums; reverse scoring flips binary.
@@ -79,6 +84,7 @@ custom_columns:
 
 ## CSV expectations
 
+- This would be the unedited CSV file direclty from Quartics
 - Row **0**: column headers (actual names used in processing).
 - Rows **0–1**: treated as metadata → dropped before scoring.
 - Column names in `sections` of the master key must match the CSV headers (case-insensitive match is applied after lowercasing).
