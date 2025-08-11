@@ -65,13 +65,6 @@ def reverse_score_binary(score):
     return abs(1 - score)  # Flip between 0 and 1
 
 
-
-
-
-
-
-
-
 def process_subscales(df, scale_name):
     if df is None or scale_name not in master_key:
         print("Data or master key is not loaded")
@@ -188,10 +181,6 @@ def process_survey(df):
         master_score = pd.concat([master_score, combined_scores_df], ignore_index=True)
 
 
-
-
-
-
 # Function to create the GUI using tkinter
 def make_UI():
     # Function for 'Everyone' button action
@@ -253,62 +242,68 @@ def make_UI():
     # Start the application
     root.mainloop()
 
-# Start the GUI application
-make_UI()
-    
-    # After GUI closes, process and save the master_score DataFrame
-if df_global is not None:
 
 
+def main():
+    # Start the GUI application
+    make_UI()
+        
+        # After GUI closes, process and save the master_score DataFrame
+    if df_global is not None:
+
+        # Make a copy of df_global for processing
+        df_cleaned = df_global.copy()
+
+        # Set the correct column headers from the first row (index 0), NOT row 1
+        df_cleaned.columns = df_global.iloc[0].str.strip().str.lower()
+
+        # Drop the first two rows (metadata)
+        df_cleaned = df_cleaned.iloc[2:].reset_index(drop=True)
+
+        # Load the YAML file and extract custom columns
+        with open('config.yaml', 'r') as f:
+            config_yaml = yaml.safe_load(f)
+
+        custom_columns = [col.strip().lower() for col in config_yaml.get("custom_columns", [])]
+
+        # Identify which columns exist in df_cleaned
+        existing_columns = [col for col in custom_columns if col in df_cleaned.columns]
+
+        # Debugging prints
+        # print("Processed CSV Headers:", df_cleaned.columns.tolist())
+        # print("YAML Custom Columns:", custom_columns)
+        # print("Matching Columns:", existing_columns)
+
+        if not existing_columns:
+            print("No matching columns found. Check config.yaml and CSV headers.")
+        else:
+            for column in reversed(existing_columns):
+                master_score.insert(0, column, df_cleaned[column].reset_index(drop=True))
+
+            print(f"Added columns to master_score: {existing_columns}")
 
 
-    # Make a copy of df_global for processing
-    df_cleaned = df_global.copy()
+        # Prompt user to specify the save location and file name
+        file_path = filedialog.asksaveasfilename(
+        defaultextension=".csv",
+        filetypes=[("CSV files", "*.csv")],
+        title="Save the master score file",
+        initialfile="master_score.csv"
+        )
 
-    # Set the correct column headers from the first row (index 0), NOT row 1
-    df_cleaned.columns = df_global.iloc[0].str.strip().str.lower()
+        # Save the updated master_score to the specified file if a path was selected
+        if file_path:
+            master_score.to_csv(file_path, index=False)
+            print(f"File saved to {file_path}")
+        else:
+            print("Save operation was canceled.")
 
-    # Drop the first two rows (metadata)
-    df_cleaned = df_cleaned.iloc[2:].reset_index(drop=True)
-
-    # Load the YAML file and extract custom columns
-    with open('config.yaml', 'r') as f:
-        config_yaml = yaml.safe_load(f)
-
-    custom_columns = [col.strip().lower() for col in config_yaml.get("custom_columns", [])]
-
-    # Identify which columns exist in df_cleaned
-    existing_columns = [col for col in custom_columns if col in df_cleaned.columns]
-
-    # Debugging prints
-    # print("Processed CSV Headers:", df_cleaned.columns.tolist())
-    # print("YAML Custom Columns:", custom_columns)
-    # print("Matching Columns:", existing_columns)
-
-    if not existing_columns:
-        print("No matching columns found. Check config.yaml and CSV headers.")
+        
     else:
-        for column in reversed(existing_columns):
-            master_score.insert(0, column, df_cleaned[column].reset_index(drop=True))
-
-        print(f"Added columns to master_score: {existing_columns}")
+        print("No data was processed.")
 
 
-    # Prompt user to specify the save location and file name
-    file_path = filedialog.asksaveasfilename(
-    defaultextension=".csv",
-    filetypes=[("CSV files", "*.csv")],
-    title="Save the master score file",
-    initialfile="master_score.csv"
-    )
 
-    # Save the updated master_score to the specified file if a path was selected
-    if file_path:
-        master_score.to_csv(file_path, index=False)
-        print(f"File saved to {file_path}")
-    else:
-        print("Save operation was canceled.")
 
-    
-else:
-    print("No data was processed.")
+if __name__ == "__main__":
+    main()
